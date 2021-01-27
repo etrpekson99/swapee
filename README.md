@@ -21,3 +21,13 @@ Exchange custom token for Ethereum and vice-versa
 9. Connect MetaMask to the client-side app by clicking "Not connected" and then "Connect" on the MetaMask extension
 
 You can now trade custom tokens with Ethereum!
+
+## Running tests
+- In order to run tests, run `truffle test` on your root directory
+
+## Make your own token
+- Update the `Token.sol` file under `src/contracts` to change the name and symbol of the token
+- Simple change the value of the `name` and `symbold` properties to however you like
+
+## For improvement
+- Use functional component for `App.js`
