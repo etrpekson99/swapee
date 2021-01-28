@@ -31,3 +31,4 @@ You can now trade custom tokens with Ethereum!
 
 ## For improvement
 - Use functional component for `App.js`
+- Address depracation issues regarding MetaMask no longer supporting Web3.js
