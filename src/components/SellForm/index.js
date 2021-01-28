@@ -1,82 +1,82 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import ethLogo from '../../eth-logo.png';
 
-class SellForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          output: '0',
-          input: '0',
-        };
+const SellForm = (props) => {
+    const {
+        etherBalance,
+        tokenBalance,
+        sellTokens,
+    } = props;
+
+    const [output, setOutput] = useState('0');
+    const [input, setInput] = useState('0');
+
+    const onChangeInput = (event) => {
+        setInput(event.target.value);
+        setOutput(event.target.value / 100);
+    };
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        let tokenAmount;
+        tokenAmount = input;
+        tokenAmount = window.web3.utils.toWei(tokenAmount, 'Ether');
+        sellTokens(tokenAmount);
     }
 
-    render() {
-        return (
-            <form className="mb-3" onSubmit ={(event) => {
-                event.preventDefault();
-                let tokenAmount;
-                tokenAmount = this.state.input;
-                tokenAmount = window.web3.utils.toWei(tokenAmount, 'Ether');
-                this.props.sellTokens(tokenAmount);
-            }}>
-                <div>
-                    <label className="float-left">Input</label>
-                    <span className="float-right text-muted">
-                        Balance: {window.web3.utils.fromWei(this.props.tokenBalance, 'Ether')}
-                    </span>
-                </div>
-                <div className="input-group mb-4">
-                    <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        placeholder="0"
-                        required
-                        onChange={(event) => {
-                            this.setState({
-                                output: event.target.value / 100,
-                                input: event.target.value,
-                            });
-                        }}
-                        value={this.state.input}
-                    />
-                    <div className="input-group-append">
-                        <div className="input-group-text">
-                            <img src="" height='32' alt="" />
-                            &nbsp;&nbsp;&nbsp; HAN
-                        </div>
+    return (
+        <form className="mb-3" onSubmit ={onSubmit}>
+            <div>
+                <label className="float-left">Input</label>
+                <span className="float-right text-muted">
+                    Balance: {window.web3.utils.fromWei(tokenBalance, 'Ether')}
+                </span>
+            </div>
+            <div className="input-group mb-4">
+                <input
+                    type="text"
+                    className="form-control form-control-lg"
+                    placeholder="0"
+                    required
+                    onChange={onChangeInput}
+                    value={input}
+                />
+                <div className="input-group-append">
+                    <div className="input-group-text">
+                        <img src="" height='32' alt="" />
+                        &nbsp;&nbsp;&nbsp; HAN
                     </div>
                 </div>
-                <div>
-                    <label className="float-left">Output</label>
-                    <span className="float-right text-muted">
-                        Balance: {window.web3.utils.fromWei(this.props.etherBalance, 'Ether')}
-                    </span>
-                </div>
-                <div className="input-group mb-4">
-                    <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        placeholder="0"
-                        value={this.state.output}
-                        disabled
-                    />
-                    <div className="input-group-append">
-                        <div className="input-group-text">
-                            <img src={ethLogo} height='32' alt="" />
-                            &nbsp;&nbsp;&nbsp; ETH
-                        </div>
+            </div>
+            <div>
+                <label className="float-left">Output</label>
+                <span className="float-right text-muted">
+                    Balance: {window.web3.utils.fromWei(etherBalance, 'Ether')}
+                </span>
+            </div>
+            <div className="input-group mb-4">
+                <input
+                    type="text"
+                    className="form-control form-control-lg"
+                    placeholder="0"
+                    value={output}
+                    disabled
+                />
+                <div className="input-group-append">
+                    <div className="input-group-text">
+                        <img src={ethLogo} height='32' alt="" />
+                        &nbsp;&nbsp;&nbsp; ETH
                     </div>
                 </div>
-                <div className="mb-5">
-                    <span className="float-left text-muted">Exchange Rate</span>
-                    <span className="float-right text-muted">100 HAN = 1 ETH</span>
-                </div>
-                <button type="submit" className="btn btn-primary btn-block btn-lg">SWAP</button>
-            </form>
-        
-        );
-    }
-}
+            </div>
+            <div className="mb-5">
+                <span className="float-left text-muted">Exchange Rate</span>
+                <span className="float-right text-muted">100 HAN = 1 ETH</span>
+            </div>
+            <button type="submit" className="btn btn-primary btn-block btn-lg">SWAP</button>
+        </form>
+    );
+};
 
 export default SellForm;

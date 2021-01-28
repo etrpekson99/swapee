@@ -1,25 +1,27 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import BuyForm from '../BuyForm';
 import SellForm from '../SellForm';
 
-class Main extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          currentForm: 'buy',
-        };
-    }
+const Main = (props) => {
+    const {
+        etherBalance,
+        tokenBalance,
+        buyTokens,
+        sellTokens,
+    } = props;
 
-    render() {
-        return (
+    const [currentForm, setCurrentForm] = useState('buy');
+
+    const onClickBuy = (event) => setCurrentForm('buy');
+    const onClickSell = (event) => setCurrentForm('sell');
+
+    return (
         <div id="content" className="mt-3">
             <div className="d-flex justify-content-between mb-3">
                 <button
                     className="btn btn-light"
-                    onClick={(event) => {
-                        this.setState({ currentForm: 'buy' });
-                    }}
+                    onClick={onClickBuy}
                 >
                     Buy
                 </button>
@@ -28,33 +30,30 @@ class Main extends Component {
                 </span>
                 <button
                     className="btn btn-light"
-                    onClick={(event) => {
-                        this.setState({ currentForm: 'sell' });
-                    }}
+                    onClick={onClickSell}
                 >
                     Sell
                 </button>
             </div>
             <div className="card mb-4">
                 <div className="card-body">
-                    {this.state.currentForm === 'buy' ? (
+                    {currentForm === 'buy' ? (
                         <BuyForm
-                            etherBalance={this.props.etherBalance}
-                            tokenBalance={this.props.tokenBalance}
-                            buyTokens={this.props.buyTokens}
+                            etherBalance={etherBalance}
+                            tokenBalance={tokenBalance}
+                            buyTokens={buyTokens}
                         />
                     ): (
                         <SellForm
-                            etherBalance={this.props.etherBalance}
-                            tokenBalance={this.props.tokenBalance}
-                            sellTokens={this.props.sellTokens}
+                            etherBalance={etherBalance}
+                            tokenBalance={tokenBalance}
+                            sellTokens={sellTokens}
                         />
                     )} 
                 </div>
             </div>
         </div>
-        );
-    }
+    );
 }
 
 export default Main;
