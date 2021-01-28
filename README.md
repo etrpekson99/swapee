@@ -27,7 +27,7 @@ You can now trade custom tokens with Ethereum!
 
 ## Make your own token
 - Update the `Token.sol` file under `src/contracts` to change the name and symbol of the token
-- Simple change the value of the `name` and `symbold` instance variables to however you like
+- Simple change the value of the `name` and `symbol` instance variables to however you like
 
 ## For improvement
 - Use functional component for `App.js`
